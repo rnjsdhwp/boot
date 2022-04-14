@@ -11,10 +11,10 @@
         <h2>Spring Test</h2>
         </br>
         <div>
-            <form action="./jsp" method="get">
+
                 <button type="button" onclick="location.href='login'">로그인</button>
                 <button type="button" onclick="location.href='regist'">회원가입</button>
-            </form>
+
         </div>
     </body>
 </html>

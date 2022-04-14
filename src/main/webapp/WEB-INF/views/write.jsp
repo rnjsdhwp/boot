@@ -12,6 +12,12 @@
         <h2>글작성</h2>
         </br>
 
+        <c:forEach var="item" items="${list}">
+            ${item.name} !!!
+            <br/>
+        </c:forEach>
+
+
 
     </body>
 </html>
