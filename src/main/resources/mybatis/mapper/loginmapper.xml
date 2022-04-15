@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ojt.oje.DAO.LoginDAO">
+    <insert id="insertUser" parameterType="com.ojt.oje.VO.userinfoVO">
+        INSERT INTO userinfo(id, NAME, pw, email) VALUES(#{id}, #{name}, #{pw}, #{email})
+    </insert>
+
+    <select id="loginProc" resultType="int">
+        SELECT COUNT(*) FROM userinfo WHERE id=#{id} AND pw=#{pw}
+    </select>
+</mapper>
