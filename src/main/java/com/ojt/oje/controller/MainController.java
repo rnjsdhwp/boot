@@ -22,7 +22,8 @@ public class MainController {
     @RequestMapping(value = "/login")
     public ModelAndView login(HttpServletRequest req){
         ModelAndView mav = new ModelAndView("login");
-        //mav.addObject("name", req.getParameter("username"));
+        mav.addObject("name", req.getParameter("name"));
+
         return mav;
     }
 

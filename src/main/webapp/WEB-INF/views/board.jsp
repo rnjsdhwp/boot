@@ -11,7 +11,7 @@
     <body>
         <h2>Q&A</h2>
         </br>
-        <form action="./write" method="get">
+        <form action="/write" method="get">
             <table style="width:900px; border:1px solid red; margin:2px;">
                 <th style="width:100px; text-align:center; border:1px solid red;">글번호</th>
                 <th style="width:500px; text-align:center; border:1px solid red;">제목</th>
@@ -20,13 +20,15 @@
                 <th style="width:100px; text-align:center; border:1px solid red;">조회수</th>
 
                 <!--게시판-->
-                <tr>
-                    <td style="text-align:center;">1</td>
-                    <td>2</td>
-                    <td style="text-align:center;">3</td>
-                    <td style="text-align:center;">4</td>
-                    <td style="text-align:center;">5</td>
-                </tr>
+                <c:forEach var="board" items="${lst}">
+                    <tr>
+                        <td style="text-align:center;">${board.rownum}</td>
+                        <td>${board.title}</td>
+                        <td style="text-align:center;">${board.id}</td>
+                        <td style="text-align:center;">${board.wdate}</td>
+                        <td style="text-align:center;">${board.hits}</td>
+                    </tr>
+                </c:forEach>
 
                 <tr>
                     <td colspan="5" style="border-top:1px solid red;">
@@ -34,5 +36,6 @@
                 </tr>
             </table>
         </form>
+        ${id}ㅇㅇㅇ
     </body>
 </html>

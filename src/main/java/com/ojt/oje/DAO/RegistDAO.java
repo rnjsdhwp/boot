@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface RegistMapper {
-    List<userinfoVO> selectTest();
+public interface RegistDAO {
+    void insertUser(userinfoVO info);
+
+    int isExistID(String userid);
 }

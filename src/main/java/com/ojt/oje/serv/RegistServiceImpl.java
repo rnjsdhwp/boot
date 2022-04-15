@@ -1,18 +1,27 @@
 package com.ojt.oje.serv;
 
-import com.ojt.oje.DAO.RegistMapper;
+import com.ojt.oje.DAO.RegistDAO;
 import com.ojt.oje.VO.userinfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class RegistServiceImpl implements IRegistService {
     @Autowired
-    private RegistMapper map;
+    private RegistDAO dao;
 
     @Override
-    public List<userinfoVO> selectTest() {
-        return map.selectTest();
+    public void insertUser(userinfoVO info) {
+        dao.insertUser(info);
+    }
+
+    @Override
+    public int chkID(String userid) {
+        return isExistID(userid);
+        //System.out.println(isExistID(userid));
+    }
+
+    private int isExistID(String userid) {
+        return dao.isExistID(userid);
     }
 }
