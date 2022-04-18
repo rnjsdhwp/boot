@@ -32,7 +32,7 @@ public class RegistController {
         }*/
 
         System.out.println(info.getId());
-        //iRegistServ.insertUser(info);
+        iRegistServ.insertUser(info);
         return "redirect:/home";
     }
 

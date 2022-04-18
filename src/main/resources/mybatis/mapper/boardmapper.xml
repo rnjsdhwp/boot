@@ -2,10 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ojt.oje.DAO.BoardDAO">
-    <select id="selectBoard" resultType="com.ojt.oje.VO.boardVO">
+    <select id="selectBoards" resultType="com.ojt.oje.VO.boardVO">
         SELECT ROW_NUMBER() over(order by wno asc) as rownum,
-        wno, title, id, wdate, hits, contents
-        FROM question_test
-        ORDER BY rownum desc;
+        wno, title,q.id, wdate,hits,contents, NAME
+        from (SELECT wno, title,id, wdate,hits,contents
+            FROM question_test) AS q,
+            userinfo AS u
+        WHERE q.id=u.id
+        ORDER BY rownum DESC
     </select>
+
+    <select id="selectBoard" resultType="com.ojt.oje.VO.boardVO" parameterType="int">
+        SELECT rownum, wno, title, n.id, wdate, hits, contents, name from
+            (SELECT ROW_NUMBER() over(order by wno asc) as rownum,
+            wno, title,q.id, wdate,hits,contents, NAME
+            from
+                (SELECT wno, title,id, wdate,hits,contents
+                FROM question_test) AS q,
+                userinfo AS u
+            WHERE q.id=u.id
+            ORDER BY rownum DESC) AS n
+        WHERE n.rownum=#{rownum}
+    </select>
+
+    <insert id="insertBoard" parameterType="com.ojt.oje.VO.boardVO">
+        INSERT INTO question_test(title, id, wdate, hits, contents)
+        VALUES(#{title}, #{id}, #{wdate}, #{hits}, #{contents})
+    </insert>
 </mapper>

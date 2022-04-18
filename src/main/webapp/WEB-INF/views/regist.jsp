@@ -16,7 +16,6 @@
     });
 </script>
 
-
 <html>
     <head>
     <meta charset="UTF-8">
@@ -36,6 +35,7 @@
                     <td>아이디</td>
                     <td><input type="text" id="id" name="id" placeholder="ID" style="float:left; width:100%;" value=${id}></td>
                     <td><input type="button" id="idchk" value='중복확인'></td>
+                    <!-- onkeyPress -->
                 </tr>
 
 

@@ -11,7 +11,8 @@
     <body>
         <h2>Q&A</h2>
         </br>
-        <form action="/write" method="get">
+        <form action="/board/write" method="get">
+            <input type="hidden" name="id" value="${id}"/>
             <table style="width:900px; border:1px solid red; margin:2px;">
                 <th style="width:100px; text-align:center; border:1px solid red;">글번호</th>
                 <th style="width:500px; text-align:center; border:1px solid red;">제목</th>
@@ -23,8 +24,8 @@
                 <c:forEach var="board" items="${lst}">
                     <tr>
                         <td style="text-align:center;">${board.rownum}</td>
-                        <td>${board.title}</td>
-                        <td style="text-align:center;">${board.id}</td>
+                        <td><a href="/board/read?rownum=${board.rownum}">${board.title}</a></td>
+                        <td style="text-align:center;">${board.name}(${board.id})</td>
                         <td style="text-align:center;">${board.wdate}</td>
                         <td style="text-align:center;">${board.hits}</td>
                     </tr>
@@ -36,6 +37,6 @@
                 </tr>
             </table>
         </form>
-        ${id}ㅇㅇㅇ
+        ${id}
     </body>
 </html>

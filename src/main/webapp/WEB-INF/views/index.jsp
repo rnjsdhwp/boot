@@ -12,16 +12,19 @@
         <h2>Spring Test</h2>
         </br>
         <div>
-            <c:choose>
-                <c:when test="${not empty id}">
-                    <button type="button" onclick="location.href='/board/boardProc'">글쓰기</button>
-                </c:when>
-                <c:otherwise>
-                    <button type="button" onclick="location.href='/login'">로그인</button>
-                    <button type="button" onclick="location.href='/regist'">회원가입</button>
-                </c:otherwise>
-            </c:choose>
+            <form action="">
+                <input type="hidden" name="id" value="${id}"/>
+                <c:choose>
+                    <c:when test="${not empty id}">
+                        <button formaction="/board/boardProc">QnA</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" onclick="location.href='/login'">로그인</button>
+                        <button type="button" onclick="location.href='/regist'">회원가입</button>
+                    </c:otherwise>
+                </c:choose>
+            </form>
         </div>
-        ${id}님 환영
+        ${id}
     </body>
 </html>
