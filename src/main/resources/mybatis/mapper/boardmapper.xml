@@ -29,4 +29,20 @@
         INSERT INTO question_test(title, id, wdate, hits, contents)
         VALUES(#{title}, #{id}, #{wdate}, #{hits}, #{contents})
     </insert>
+
+    <select id="countReply" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM reply AS r, question_test AS q WHERE q.wno=#{wno} AND r.wno=q.wno
+    </select>
+
+    <select id="selectReply" resultType="com.ojt.oje.VO.replyVO" parameterType="int">
+        SELECT wno, rno, r.id, rdate, contents, name
+        FROM reply as r, userinfo as u
+        WHERE r.wno=#{wno} AND r.id=u.id
+        order BY rno DESC
+    </select>
+
+    <insert id="insertReply" parameterType="com.ojt.oje.VO.replyVO">
+        INSERT INTO reply(wno, id, rdate, contents)
+        VALUES(#{wno}, #{id}, #{rdate}, #{contents})
+    </insert>
 </mapper>

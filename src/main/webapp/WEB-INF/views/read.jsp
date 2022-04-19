@@ -18,13 +18,13 @@
     <body>
         <h2>질문보기</h2>
         </br>
+        ${id}
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
             <form action="/board/boardProc" method="get">
-                <input type="hidden" name="id" value="${id}">
                 <h3>질문</h3>
                 <table style="width:100%; background-color:lightgray;">
-                    <c:forEach var="board" items="${lst}">
-                       <tr>
+                    <c:forEach var="board" items="${boardlst}">
+                        <tr>
                             <td colspan="2"><h2>${board.title}</h2></td>
                         </tr>
 
@@ -52,8 +52,8 @@
 
                         <tr style="text-align:right;">
                             <td colspan="2">
-                                <input type="button" onclick="location.href='/board/reply?rownum=${board.rownum}'" value="답글">
-                                <input type="button" onclick="goBack();" value="목록" >
+                                <input type="button" onclick="location.href='/board/reply?wno=${board.wno}&rownum=${board.rownum}'" value="답글">
+                                <input type="button" onclick="location.href='/board/boardProc'" value="목록" >
                             </td>
                         </tr>
                     </c:forEach>
@@ -66,11 +66,11 @@
                 <div style="width:500px; height:200px; border:1px solid red; margin:2px;">
                     <h3>답글</h3>
                     <c:forEach var="reply" items="${replylst}">
-                        <table>
+                        <table style="width:500px; border:1px solid green;">
                             <tr>
-                                <td>${reply.id}</td>
-                                <td>${reply.contents}</td>
-                                <td>${reply.rdate}</td>
+                                <td style="width:100px;">${reply.name}(${reply.id})</td>
+                                <td style="width:300px;">${reply.contents}</td>
+                                <td style="width:100px;">${reply.rdate}</td>
                             </tr>
                         </table>
                     </c:forEach>

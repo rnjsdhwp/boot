@@ -2,6 +2,7 @@ package com.ojt.oje.serv;
 
 import com.ojt.oje.DAO.BoardDAO;
 import com.ojt.oje.VO.boardVO;
+import com.ojt.oje.VO.replyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class BoardServiceImpl implements IBoardService{
     }
 
     @Override
-    public List<boardVO> selectReply(int wno) {
+    public List<replyVO> selectReply(int wno) {
         int rowcnt = dao.countReply(wno);
 
         if(rowcnt == 0){
@@ -48,5 +49,16 @@ public class BoardServiceImpl implements IBoardService{
 
         //System.out.println(boardVO.getWdate());
         dao.insertBoard(boardVO);
+    }
+
+    @Override
+    public void insertReply(replyVO replyVO) {
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formatNow = format.format(now);
+
+        replyVO.setRdate(formatNow);
+
+        dao.insertReply(replyVO);
     }
 }

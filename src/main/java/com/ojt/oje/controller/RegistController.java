@@ -16,7 +16,6 @@ import java.io.PrintWriter;
 public class RegistController {
     @Autowired
     private IRegistService iRegistServ;
-    //private int chkIdNum = 0;
 
     @RequestMapping(value = "/")
     public String index(){
@@ -50,8 +49,8 @@ public class RegistController {
 
     @RequestMapping(value = "/chkID")
     public String chkID(Model model, HttpServletRequest req){
-        //chkIdNum = 1;
-        //HttpServletRequest req ===> userinfoVO info 로 변경해서 진행하기
+        //리스트에 저장
+        //
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String pw = req.getParameter("pw");
@@ -59,7 +58,6 @@ public class RegistController {
         String email = req.getParameter("email");
 
         int num = iRegistServ.chkID(id);
-        //System.out.println(id);
         if(num == 0)    model.addAttribute("isExistID", "false");
         else            model.addAttribute("isExistID", "true");
 

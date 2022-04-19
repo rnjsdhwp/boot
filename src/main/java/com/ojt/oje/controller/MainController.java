@@ -13,6 +13,11 @@ public class MainController {
         ModelAndView mav = new ModelAndView("index");
         return mav;
     }
+    @RequestMapping(value = "/index")
+    public ModelAndView index1(){
+        ModelAndView mav = new ModelAndView("index");
+        return mav;
+    }
     @RequestMapping(value = "/home")
     public ModelAndView home(){
         ModelAndView mav = new ModelAndView("index");
@@ -22,7 +27,7 @@ public class MainController {
     @RequestMapping(value = "/login")
     public ModelAndView login(HttpServletRequest req){
         ModelAndView mav = new ModelAndView("login");
-        mav.addObject("name", req.getParameter("name"));
+        //mav.addObject("name", req.getParameter("name"));
 
         return mav;
     }

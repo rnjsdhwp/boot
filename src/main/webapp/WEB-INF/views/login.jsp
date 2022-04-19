@@ -11,7 +11,7 @@
     <body>
         <h2>로그인</h2>
         </br>
-        <form action="/login/loginProc" method="get">
+        <form action="/login/loginProc" method="post">
             <table style="width:300px; border:1px solid red; margin:2px;">
                 <tr>
                     <td>아이디</td>

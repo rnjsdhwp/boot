@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,16 +30,21 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/loginProc")
-    public String loginProc(Model model, userinfoVO info, HttpServletResponse response) throws IOException {
-        System.out.println(info.getId());
+    public String loginProc(Model model,
+                            userinfoVO info,
+                            HttpServletResponse res,
+                            HttpServletRequest req) throws IOException {
+        //System.out.println(info.getId());
+        HttpSession session = req.getSession();
 
         boolean isSuccess = iLoginServ.loginProc(info);
         if(isSuccess){
-            alert(response, "로그인성공");
-            model.addAttribute("id", info.getId());
+            alert(res, "로그인성공");
+            session.setAttribute("id", info.getId());
+            //model.addAttribute("id", info.getId());
             return "/index";
         }else {
-            alert(response, "로그인실패");
+            alert(res, "로그인실패");
             return "/login";
         }
     }
@@ -53,4 +61,9 @@ public class LoginController {
         response.setCharacterEncoding("euc-kr");
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
 }

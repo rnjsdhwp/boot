@@ -18,7 +18,7 @@
     <body>
         <h2>답글작성</h2>
         </br>
-
+        ${id}
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
             <form action="/board/boardProc" method="get">
                 <input type="hidden" name="id" value="${id}">
@@ -55,8 +55,10 @@
 
         <div style="width:500px; height:200px; border:1px solid red; margin:2px;">
             <form action="/board/replyProc" method="get">
-                <input type="hidden" name="id" value="${id}">
                 <h3>답글</h3>
+                <input type="hidden" name="rownum" value="${lst.get(0).rownum}"/>
+                <input type="hidden" name="wno" value="${lst.get(0).wno}"/>
+                <input type="hidden" name="id" value="${id}"/>
                 <table style="width:100%;">
                     <tr>
                         <td>
