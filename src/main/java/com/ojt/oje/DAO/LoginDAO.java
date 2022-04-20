@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface LoginDAO {
+    int chkID(userinfoVO info);
 
-    int loginProc(userinfoVO info);
+    int chkAccount(userinfoVO info);
 }

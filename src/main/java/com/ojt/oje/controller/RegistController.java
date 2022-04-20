@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value = "/regist")
@@ -22,51 +20,27 @@ public class RegistController {
         return "/regist";
     }
 
-    @RequestMapping(value = "/registuser")
-    public String registuser(userinfoVO info) throws IOException {
-        /*System.out.println(chkIdNum);
-        if(chkIdNum==0){
-            String msg = "아이디 중복확인을 해주세요.";
-            alert(response, msg);
-        }*/
+    @RequestMapping(value = "/registuser", method = RequestMethod.POST)
+    public String registuser(userinfoVO info, HttpServletRequest req){
+        String email = req.getParameter("email");
+        String email2 = req.getParameter("email2");
+        info.setEmail(email+"@"+email2);
 
-        System.out.println(info.getId());
         iRegistServ.insertUser(info);
+
         return "redirect:/home";
-    }
-
-    private static void alert(HttpServletResponse response, String msg) throws IOException {
-        init(response);
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + msg + "');</script> ");
-        out.flush();
-    }
-
-    private static void init(HttpServletResponse response) {
-        response.setContentType("text/html; charset=euc-kr");
-        response.setCharacterEncoding("euc-kr");
     }
 
     @RequestMapping(value = "/chkID")
     public String chkID(Model model, HttpServletRequest req){
-        //리스트에 저장
-        //
         String id = req.getParameter("id");
-        String name = req.getParameter("name");
-        String pw = req.getParameter("pw");
-        String pwchk = req.getParameter("pwchk");
-        String email = req.getParameter("email");
-
         int num = iRegistServ.chkID(id);
-        if(num == 0)    model.addAttribute("isExistID", "false");
-        else            model.addAttribute("isExistID", "true");
 
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("pw", pw);
-        model.addAttribute("pwchk", pwchk);
-        model.addAttribute("email", email);
+        if(num == 0) {   model.addAttribute("data", "isExistID_false");}
+        else{            model.addAttribute("data", "isExistID_true");}
 
-        return "/regist";
+        return "/chkID";
     }
+
+
 }

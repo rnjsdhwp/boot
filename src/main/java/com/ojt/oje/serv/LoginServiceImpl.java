@@ -11,10 +11,18 @@ public class LoginServiceImpl implements ILoginService{
     private LoginDAO dao;
 
     @Override
-    public boolean loginProc(userinfoVO info) {
-        int loginSuccess = dao.loginProc(info);
+    public String loginProc(userinfoVO info) {
+        int chkIDNum = dao.chkID(info);
 
-        if(loginSuccess == 1)   return true;
-        else return false;
+        if(chkIDNum == 1){
+            int chkAccNum = dao.chkAccount(info);
+            if(chkAccNum == 1){
+                return "isLoginSuccess_true";
+            }else{
+                return "isLoginSuccess_noPW";
+            }
+        }else{
+            return "isLoginSuccess_noID";
+        }
     }
 }

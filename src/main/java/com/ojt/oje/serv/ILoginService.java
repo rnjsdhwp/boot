@@ -4,5 +4,5 @@ import com.ojt.oje.VO.userinfoVO;
 
 public interface ILoginService {
 
-    boolean loginProc(userinfoVO info);
+    String loginProc(userinfoVO info);
 }

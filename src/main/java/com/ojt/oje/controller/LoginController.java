@@ -30,40 +30,25 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/loginProc")
-    public String loginProc(Model model,
-                            userinfoVO info,
-                            HttpServletResponse res,
-                            HttpServletRequest req) throws IOException {
-        //System.out.println(info.getId());
-        HttpSession session = req.getSession();
+    public String loginProc(userinfoVO info, Model model){
+        String msg = iLoginServ.loginProc(info);
+        model.addAttribute("data", msg);
 
-        boolean isSuccess = iLoginServ.loginProc(info);
-        if(isSuccess){
-            alert(res, "로그인성공");
-            session.setAttribute("id", info.getId());
-            //model.addAttribute("id", info.getId());
-            return "/index";
-        }else {
-            alert(res, "로그인실패");
-            return "/login";
-        }
+        return "/chkID";
     }
 
-    private static void alert(HttpServletResponse response, String msg) throws IOException {
-        init(response);
-        PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + msg + "');</script> ");
-        out.flush();
-    }
-
-    private static void init(HttpServletResponse response) {
-        response.setContentType("text/html; charset=euc-kr");
-        response.setCharacterEncoding("euc-kr");
-    }
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/loginuser")
+    public String loginuser(userinfoVO info, HttpServletRequest req){
+        HttpSession session = req.getSession();
+        session.setAttribute("id", info.getId());
+
+        return "redirect:/home";
     }
 }
