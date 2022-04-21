@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ojt.oje.DAO.BoardDAO">
-    <select id="selectBoards" resultType="com.ojt.oje.VO.boardVO">
+    <select id="selectBoards" resultType="com.ojt.oje.VO.boardVO" parameterType="int">
         SELECT ROW_NUMBER() over(order by wno asc) as rownum,
         wno, title,q.id, wdate,hits,contents, NAME
         from (SELECT wno, title,id, wdate,hits,contents
@@ -10,6 +10,7 @@
             userinfo AS u
         WHERE q.id=u.id
         ORDER BY rownum DESC
+        LIMIT #{start_board}, #{end_board}
     </select>
 
     <select id="selectBoard" resultType="com.ojt.oje.VO.boardVO" parameterType="int">
@@ -22,7 +23,7 @@
                 userinfo AS u
             WHERE q.id=u.id
             ORDER BY rownum DESC) AS n
-        WHERE n.rownum=#{rownum}
+        WHERE n.wno=#{wno}
     </select>
 
     <insert id="insertBoard" parameterType="com.ojt.oje.VO.boardVO">
@@ -39,10 +40,15 @@
         FROM reply as r, userinfo as u
         WHERE r.wno=#{wno} AND r.id=u.id
         order BY rno DESC
+        LIMIT #{start_reply}, #{end_reply}
     </select>
 
     <insert id="insertReply" parameterType="com.ojt.oje.VO.replyVO">
         INSERT INTO reply(wno, id, rdate, contents)
         VALUES(#{wno}, #{id}, #{rdate}, #{contents})
     </insert>
+
+    <select id="countBoard" resultType="int">
+        SELECT COUNT(*) FROM question_test
+    </select>
 </mapper>

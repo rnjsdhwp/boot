@@ -18,13 +18,11 @@
     <body>
         <h2>답글작성</h2>
         </br>
-        ${id}
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
-            <form action="/board/boardProc" method="get">
-                <input type="hidden" name="id" value="${id}">
+            <form action="">
                 <h3>질문</h3>
                 <table style="width:100%; background-color:lightgray;">
-                    <c:forEach var="board" items="${lst}">
+                    <c:forEach var="board" items="${boardlst}">
                         <tr>
                             <td colspan="2"><h2>${board.title}</h2></td>
                         </tr>
@@ -42,7 +40,7 @@
                 </table>
 
                 <table style="width:500px;">
-                    <c:forEach var="board" items="${lst}">
+                    <c:forEach var="board" items="${boardlst}">
                         <tr style="height:10px;"></tr>
 
                         <tr>
@@ -54,11 +52,11 @@
         </div>
 
         <div style="width:500px; height:200px; border:1px solid red; margin:2px;">
-            <form action="/board/replyProc" method="get">
+            <form action="/board/replyProc" method="post">
                 <h3>답글</h3>
-                <input type="hidden" name="rownum" value="${lst.get(0).rownum}"/>
-                <input type="hidden" name="wno" value="${lst.get(0).wno}"/>
-                <input type="hidden" name="id" value="${id}"/>
+                <input type="hidden" name="cPage" value="${cPage}"/>
+                <input type="hidden" name="cBlock" value="${cBlock}"/>
+                <input type="hidden" name="wno" value="${boardlst.get(0).wno}"/>
                 <table style="width:100%;">
                     <tr>
                         <td>

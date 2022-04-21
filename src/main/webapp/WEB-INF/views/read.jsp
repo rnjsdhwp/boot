@@ -18,7 +18,6 @@
     <body>
         <h2>질문보기</h2>
         </br>
-        ${id}
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
             <form action="/board/boardProc" method="get">
                 <h3>질문</h3>
@@ -52,8 +51,8 @@
 
                         <tr style="text-align:right;">
                             <td colspan="2">
-                                <input type="button" onclick="location.href='/board/reply?wno=${board.wno}&rownum=${board.rownum}'" value="답글">
-                                <input type="button" onclick="location.href='/board/boardProc'" value="목록" >
+                                <input type="button" onclick="location.href='/board/reply?cPage=${cPage}&cBlock=${cBlock}&wno=${board.wno}'" value="답글">
+                                <input type="button" onclick="location.href='/board/boardProc?cPage=${cPage}&cBlock=${cBlock}'" value="목록" >
                             </td>
                         </tr>
                     </c:forEach>
@@ -63,17 +62,37 @@
 
         <c:choose>
             <c:when test="${not empty replylst}">
-                <div style="width:500px; height:200px; border:1px solid red; margin:2px;">
+                <div style="width:500px; height:290px; border:1px solid red; margin:2px;">
                     <h3>답글</h3>
-                    <c:forEach var="reply" items="${replylst}">
-                        <table style="width:500px; border:1px solid green;">
+                    <table style="width:500px;">
+                        <c:forEach var="reply" items="${replylst}">
                             <tr>
-                                <td style="width:100px;">${reply.name}(${reply.id})</td>
-                                <td style="width:300px;">${reply.contents}</td>
-                                <td style="width:100px;">${reply.rdate}</td>
+                                <td style="width:100px; border-top:1px solid red;">${reply.id}(${reply.name})</td>
+                                <td style="width:300px; border-top:1px solid red;">${reply.contents}</td>
+                                <td style="width:100px; border-top:1px solid red;">${reply.rdate}</td>
                             </tr>
-                        </table>
-                    </c:forEach>
+                        </c:forEach>
+
+                        <tr>
+                            <td colspan="3" style="text-align:center; border-top:1px solid red;">
+                                <c:choose>
+                                    <c:when test="${cBlock_reply ne '1'}">
+                                        <a href="/board/read?cPage=${cPage}&cBlock=${cBlock}&wno=${boardlst.get(0).wno}&cPage_reply=${(cBlock_reply-1)*3-2}&cBlock_reply=${cBlock_reply-1}"><이전</a>
+                                    </c:when>
+                                    <c:otherwise> </c:otherwise>
+                                </c:choose>
+                                <c:forEach var="i" begin="${start_block}" end="${end_block}">
+                                    <a href="/board/read?cPage=${cPage}&cBlock=${cBlock}&wno=${boardlst.get(0).wno}&cPage_reply=${i}&cBlock_reply=${cBlock_reply}">${i}</a>
+                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${cBlock_reply ne totalPageBlock}">
+                                        <a href="/board/read?cPage=${cPage}&cBlock=${cBlock}&wno=${boardlst.get(0).wno}&cPage_reply=${(cBlock_reply+1)*3-2}&cBlock_reply=${cBlock_reply+1}">다음></a>
+                                    </c:when>
+                                    <c:otherwise> </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </c:when>
             <c:otherwise>

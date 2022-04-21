@@ -7,14 +7,16 @@ import java.util.List;
 
 @Mapper
 public interface BoardDAO {
-    List<boardVO> selectBoards();
-    List<boardVO> selectBoard(int rownum);
+    List<boardVO> selectBoards(int start_board, int end_board);
+    List<boardVO> selectBoard(int wno);
 
     void insertBoard(boardVO boardVO);
 
     int countReply(int wno);
 
-    List<replyVO> selectReply(int wno);
+    List<replyVO> selectReply(int wno, int start_reply, int end_reply);
 
     void insertReply(replyVO replyVO);
+
+    int countBoard();
 }

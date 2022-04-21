@@ -12,11 +12,10 @@
         <h2>Spring Test</h2>
         </br>
         <div>
-            ${id}
             <form method="post">
                 <c:choose>
                     <c:when test="${not empty id}">
-                        <input type="button" onclick="location.href='/board/boardProc'" value="QnA"/>
+                        <input type="button" onclick="location.href='/board/boardProc?cPage=1&cBlock=1'" value="QnA"/>
                         <input type="button" onclick="location.href='/login/logout'" value="로그아웃"/>
                     </c:when>
                     <c:otherwise>
