@@ -2,7 +2,6 @@ package com.ojt.oje.serv;
 
 import com.ojt.oje.VO.boardVO;
 import com.ojt.oje.VO.replyVO;
-
 import java.util.List;
 
 public interface IBoardService {
@@ -12,6 +11,6 @@ public interface IBoardService {
     void insertBoard(boardVO boardVO);
     void insertReply(replyVO replyVO);
     int countBoard();
-
     int countReply(int wno);
+    void hitsBoard(int wno);
 }

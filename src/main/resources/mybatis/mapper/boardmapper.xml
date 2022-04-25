@@ -4,35 +4,26 @@
 <mapper namespace="com.ojt.oje.DAO.BoardDAO">
     <select id="selectBoards" resultType="com.ojt.oje.VO.boardVO" parameterType="int">
         SELECT ROW_NUMBER() over(order by wno asc) as rownum,
-        wno, title,q.id, wdate,hits,contents, NAME
-        from (SELECT wno, title,id, wdate,hits,contents
-            FROM question_test) AS q,
-            userinfo AS u
+            wno, title, q.id, wdate, hits, contents, rcount, NAME
+        FROM question AS q, userinfo AS u
         WHERE q.id=u.id
         ORDER BY rownum DESC
         LIMIT #{start_board}, #{end_board}
     </select>
 
     <select id="selectBoard" resultType="com.ojt.oje.VO.boardVO" parameterType="int">
-        SELECT rownum, wno, title, n.id, wdate, hits, contents, name from
-            (SELECT ROW_NUMBER() over(order by wno asc) as rownum,
-            wno, title,q.id, wdate,hits,contents, NAME
-            from
-                (SELECT wno, title,id, wdate,hits,contents
-                FROM question_test) AS q,
-                userinfo AS u
-            WHERE q.id=u.id
-            ORDER BY rownum DESC) AS n
-        WHERE n.wno=#{wno}
+        SELECT wno, title, q.id, wdate, contents, NAME
+        FROM question AS q, userinfo AS u
+        WHERE q.id=u.id AND q.wno=#{wno}
     </select>
 
     <insert id="insertBoard" parameterType="com.ojt.oje.VO.boardVO">
-        INSERT INTO question_test(title, id, wdate, hits, contents)
+        INSERT INTO question(title, id, wdate, hits, contents)
         VALUES(#{title}, #{id}, #{wdate}, #{hits}, #{contents})
     </insert>
 
     <select id="countReply" resultType="int" parameterType="int">
-        SELECT COUNT(*) FROM reply AS r, question_test AS q WHERE q.wno=#{wno} AND r.wno=q.wno
+        SELECT COUNT(*) FROM reply AS r, question AS q WHERE q.wno=#{wno} AND r.wno=q.wno
     </select>
 
     <select id="selectReply" resultType="com.ojt.oje.VO.replyVO" parameterType="int">
@@ -49,6 +40,14 @@
     </insert>
 
     <select id="countBoard" resultType="int">
-        SELECT COUNT(*) FROM question_test
+        SELECT COUNT(*) FROM question
     </select>
+
+    <update id="hitsBoard" parameterType="int">
+        UPDATE question SET hits=hits+1 WHERE wno=#{wno}
+    </update>
+
+    <update id="board_replyCnt" parameterType="int">
+        UPDATE question SET rcount=rcount+1 WHERE wno=#{wno}
+    </update>
 </mapper>

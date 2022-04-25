@@ -11,6 +11,7 @@
     <body>
         <h2>Q&A</h2>
         </br>
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
         <form action="/board/write" method="post">
             ${cPage} 페이지
             <table style="width:900px; border:1px solid red; margin:2px;">
@@ -24,7 +25,8 @@
                 <c:forEach var="board" items="${boardlst}">
                     <tr>
                         <td style="text-align:center;">${board.rownum}</td>
-                        <td><a href="/board/read?cPage=${cPage}&cBlock=${cBlock}&wno=${board.wno}">${board.title}</a></td> <!--아이디바꾸기-->
+                        <td><a href="/board/read?cPage=${cPage}&cBlock=${cBlock}&wno=${board.wno}">${board.title}
+                            <c:if test="${board.rcount > 0}">(${board.rcount})</c:if></a></td>
                         <td style="text-align:center;">${board.id}(${board.name})</td>
                         <td style="text-align:center;">${board.wdate}</td>
                         <td style="text-align:center;">${board.hits}</td>

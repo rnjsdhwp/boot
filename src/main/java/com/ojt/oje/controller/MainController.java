@@ -1,53 +1,44 @@
 package com.ojt.oje.controller;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 public class MainController {
     @RequestMapping(value = "/")
-    public ModelAndView index(){
-        ModelAndView mav = new ModelAndView("index");
-        return mav;
+    public String index(){
+        return "/index";
     }
     @RequestMapping(value = "/index")
-    public ModelAndView index1(){
-        ModelAndView mav = new ModelAndView("index");
-        return mav;
+    public String index1(){
+        return "/index";
     }
     @RequestMapping(value = "/home")
-    public ModelAndView home(){
-        ModelAndView mav = new ModelAndView("index");
-        return mav;
+    public String home(){
+        return "/index";
     }
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(HttpServletRequest req){
-        ModelAndView mav = new ModelAndView("login");
-        //mav.addObject("name", req.getParameter("name"));
-
-        return mav;
+    public String login(){
+        return "/login";
     }
 
     @RequestMapping(value = "/regist")
-    public ModelAndView regist(HttpServletRequest req){
-        ModelAndView mav = new ModelAndView("regist");
-        return mav;
+    public String regist(){
+        return "/regist";
     }
 
     @RequestMapping(value = "/board")
-    public ModelAndView board(HttpServletRequest req){
-        ModelAndView mav = new ModelAndView("board");
-        return mav;
+    public String board(){
+        return "redirect:/board/boardProc";
     }
 
     @RequestMapping(value = "/write")
-    public ModelAndView write(HttpServletRequest req){
-        ModelAndView mav = new ModelAndView("write");
-        return mav;
+    public String write(){
+        return "/write";
     }
 
 }

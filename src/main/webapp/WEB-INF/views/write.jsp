@@ -4,9 +4,22 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function goBack(){
-        window.history.back();
-    }
+    $(function(){
+        $("#writeBtn").on('click',function(){
+            var title = $("#title").val();
+            var contents = $("#contents").val();
+
+            if(!title){
+                alert("제목을 입력하세요.");
+                return;
+            }else if(!contents){
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            $("#writeForm").submit();
+        });
+    });
 </script>
 
 <html>
@@ -18,8 +31,8 @@
     <body>
         <h2>글작성</h2>
         </br>
-
-        <form action="/board/writeProc" method="post">
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
+        <form action="/board/writeProc" method="post" id="writeForm">
             <table style="border:1px solid red; margin:2px;">
                 <tr>
                     <td style="width:100px;">작성자</td>
@@ -30,23 +43,22 @@
 
                 <tr>
                     <td style="width:100px;">제목</td>
-                    <td><input type="text" name="title"></td>
+                    <td><input type="text" name="title" id="title"></td>
                 </tr>
 
                 <tr style="height:10px;"></tr>
 
                 <tr>
                     <td style="vertical-align:top;">내용</td>
-                    <td><textarea name="contents" cols="80" rows="5" style="resize:none;"></textarea></td>
+                    <td><textarea name="contents" id="contents" cols="80" rows="5" style="resize:none;"></textarea></td>
                 </tr>
 
                 <tr style="height:10px;"></tr>
 
                 <tr>
                     <td colspan="2" style="text-align:right;">
-                        <input type="submit" value="등록"/>
-                        <!--<input type="button" value="취소" onclick="location.href='/board/boardProc?cPage='+${cPage}+'&cBlock='+${cBlock}"/>-->
-                        <input type="button" value="취소" onclick="goBack();"/>
+                        <input type="button" value="등록" id="writeBtn"/>
+                        <input type="button" value="취소" onclick="location.href='/board/boardProc'"/>
                     </td>
                 </tr>
             </table>

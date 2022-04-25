@@ -4,9 +4,18 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function goBack(){
-        window.history.back();
-    }
+    $(function(){
+        $("#replyBtn").on('click',function(){
+            var contents = $("#contents").val();
+
+            if(!contents){
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            $("#replyForm").submit();
+        });
+    });
 </script>
 
 <html>
@@ -18,6 +27,7 @@
     <body>
         <h2>답글작성</h2>
         </br>
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
             <form action="">
                 <h3>질문</h3>
@@ -52,7 +62,7 @@
         </div>
 
         <div style="width:500px; height:200px; border:1px solid red; margin:2px;">
-            <form action="/board/replyProc" method="post">
+            <form action="/board/replyProc" method="post" id="replyForm">
                 <h3>답글</h3>
                 <input type="hidden" name="cPage" value="${cPage}"/>
                 <input type="hidden" name="cBlock" value="${cBlock}"/>
@@ -60,13 +70,13 @@
                 <table style="width:100%;">
                     <tr>
                         <td>
-                            <textarea name="contents" style="width:100%; resize:none;" rows="5"></textarea>
+                            <textarea name="contents" id="contents" style="width:100%; resize:none;" rows="5"></textarea>
                         </td>
                     </tr>
                     <tr style="height:10px;"></tr>
                     <tr style="text-align:right;">
-                        <td><input type="submit" value="등록"/>
-                            <input type="button" value="취소" onclick="goBack();"/></td>
+                        <td><input type="button" value="등록" id="replyBtn"/>
+                            <input type="button" value="취소" onclick="location.href='/board/read?cPage='+${cPage}+'&cBlock='+${cBlock}+'&wno='+${boardlst.get(0).wno}"/></td>
                     </tr>
                 </table>
             </form>

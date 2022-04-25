@@ -21,8 +21,6 @@
                 type:"POST",
                 url: "/login/loginProc?id=" + id + "&pw=" + pw,
                 success : function(data) {
-                    console.log(data);
-                    //var chkdata="isLoginSuccess_true";
                     if(data == "isLoginSuccess_true"){
                         alert("로그인 성공");
                         $('#loginForm').submit();
@@ -46,6 +44,7 @@
     <body>
         <h2>로그인</h2>
         </br>
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
         <form action="/login/loginuser" method="post" id="loginForm">
             <table style="width:300px; border:1px solid red; margin:2px;">
                 <tr>

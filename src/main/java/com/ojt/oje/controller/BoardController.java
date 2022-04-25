@@ -21,11 +21,16 @@ public class BoardController {
     final int REPLY_LIST_CNT = 4;
     final int BLOCK_CNT = 3;
 
+    @RequestMapping(value = "/")
+    public String index(){
+        return "redirect:/board/boardProc";
+    }
+
     @RequestMapping(value = "/boardProc")
     public String boardProc(Model model, HttpSession session, HttpServletRequest req){
-//        if(!isLogin(session)){
-//            return "/redirect";
-//        }
+        if(!isLogin(session)){
+            return "/redirect";
+        }
 
         paging(model, req, -1, BOARD_LIST_CNT);
 
@@ -33,20 +38,17 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/write")
-    public String write(Model model, HttpSession session, HttpServletRequest req){
-//        if(!isLogin(session)){
-//            return "/redirect";
-//        }
-
-
+    public String write(HttpSession session){
+        if(!isLogin(session)){
+            return "/redirect";
+        }
 
         return "/write";
     }
 
     @RequestMapping(value = "/writeProc")
     public String writeProc(boardVO boardVO,
-                            HttpSession session, HttpServletRequest req,
-                            RedirectAttributes re){
+                            HttpSession session){
         if(!isLogin(session)){
             return "/redirect";
         }
@@ -59,29 +61,26 @@ public class BoardController {
     @RequestMapping(value = "/read")
     public String read(Model model, boardVO boardVO,
                        HttpSession session, HttpServletRequest req){
-//        if(!isLogin(session)){
-//            return "/redirect";
-//        }
-
-        //조회수
-        
+        if(!isLogin(session)){
+            return "/redirect";
+        }
 
         int wno = boardVO.getWno();
-
         paging(model, req, wno, REPLY_LIST_CNT);
-
 
         List<boardVO> boardlst = iBoardServ.selectBoard(wno);
         model.addAttribute("boardlst", boardlst);
+
+        iBoardServ.hitsBoard(boardVO.getWno());
 
         return "read";
     }
 
     @RequestMapping(value = "/reply")
     public String reply(Model model, boardVO boardVO, HttpSession session, HttpServletRequest req){
-//        if(!isLogin(session)){
-//            return "/redirect";
-//        }
+        if(!isLogin(session)){
+            return "/redirect";
+        }
 
         int cPage = Integer.parseInt(req.getParameter("cPage"));
         int cBlock = Integer.parseInt(req.getParameter("cBlock"));
@@ -100,13 +99,15 @@ public class BoardController {
                            RedirectAttributes re,
                            HttpSession session,
                            HttpServletRequest req){
-//        if(!isLogin(session)){
-//            return "/redirect";
-//        }
+        if(!isLogin(session)){
+            return "/redirect";
+        }
 
         String id = (String) session.getAttribute("id");
         replyVO.setId(id);
         iBoardServ.insertReply(replyVO);
+
+        String msg = req.getParameter("cPage");
 
         int cPage = Integer.parseInt(req.getParameter("cPage"));
         int cBlock = Integer.parseInt(req.getParameter("cBlock"));

@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-    function goBack(){
-        window.history.back();
-    }
-</script>
-
 <html>
     <head>
     <meta charset="UTF-8">
@@ -18,6 +11,7 @@
     <body>
         <h2>질문보기</h2>
         </br>
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
         <div style="width:500px; height:500px; border:1px solid red; margin:2px;">
             <form action="/board/boardProc" method="get">
                 <h3>질문</h3>

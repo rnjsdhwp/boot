@@ -16,8 +16,7 @@ public class BoardServiceImpl implements IBoardService{
 
     @Override
     public List<boardVO> selectBoards(int start_board, int end_board) {
-        List<boardVO> lst = dao.selectBoards(start_board, end_board);
-        return lst;
+        return dao.selectBoards(start_board, end_board);
     }
 
     @Override
@@ -38,9 +37,7 @@ public class BoardServiceImpl implements IBoardService{
 
     @Override
     public void insertBoard(boardVO boardVO) {
-        String formatNow = dateformat();
-
-        boardVO.setWdate(formatNow);
+        boardVO.setWdate(dateformat());
         boardVO.setHits(0);
 
         dao.insertBoard(boardVO);
@@ -48,11 +45,10 @@ public class BoardServiceImpl implements IBoardService{
 
     @Override
     public void insertReply(replyVO replyVO) {
-        String formatNow = dateformat();
-
-        replyVO.setRdate(formatNow);
+        replyVO.setRdate(dateformat());
 
         dao.insertReply(replyVO);
+        dao.board_replyCnt(replyVO.getWno());
     }
 
     private String dateformat(){
@@ -69,5 +65,10 @@ public class BoardServiceImpl implements IBoardService{
     @Override
     public int countReply(int wno) {
         return dao.countReply(wno);
+    }
+
+    @Override
+    public void hitsBoard(int wno) {
+        dao.hitsBoard(wno);
     }
 }

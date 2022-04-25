@@ -11,13 +11,18 @@
         $('#idchk').on('click', function(){
             var id = $('#id').val();
 
+            if(!id){
+                alert("id를 입력하세요.");
+                return;
+            }
+
             $.ajax({
                 type:"POST",
                 url: "/regist/chkID?id=" + id,
                 success : function(data) {
                     console.log(data);
-                    var chkdata="isExistID_true";
-                    if(data.includes(chkdata)){
+                    //var chkdata="isExistID_true";
+                    if(data == "isExistID_true"){
                         idchk=0;
                         alert("이미 있는 아이디입니다.");
                         document.getElementById('idchktxt').value = idchk;
@@ -93,6 +98,7 @@
         <input type="hidden" value="${data}" id="isExistID"/>
         <h2>회원가입</h2>
         </br>
+        <input type="button" id="cancel" value="홈" style="width:50px;" onclick="location.href='/home'">
         <form action="/regist/registuser" method="post" id="registForm">
             <input type="hidden" id="idchktxt" name="idchktxt" value="0" />
             <table style="width:500px; border:1px solid red; margin:2px;">

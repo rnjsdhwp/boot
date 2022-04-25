@@ -9,14 +9,11 @@ import java.util.List;
 public interface BoardDAO {
     List<boardVO> selectBoards(int start_board, int end_board);
     List<boardVO> selectBoard(int wno);
-
     void insertBoard(boardVO boardVO);
-
     int countReply(int wno);
-
     List<replyVO> selectReply(int wno, int start_reply, int end_reply);
-
     void insertReply(replyVO replyVO);
-
     int countBoard();
+    void hitsBoard(int wno);
+    void board_replyCnt(int wno);
 }
