@@ -107,8 +107,6 @@ public class BoardController {
         replyVO.setId(id);
         iBoardServ.insertReply(replyVO);
 
-        String msg = req.getParameter("cPage");
-
         int cPage = Integer.parseInt(req.getParameter("cPage"));
         int cBlock = Integer.parseInt(req.getParameter("cBlock"));
         re.addAttribute("cPage", cPage);
